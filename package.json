@@ -24,10 +24,10 @@
   "license": "MIT",
   "bugs": "https://github.com/skylark-domx/skylark-domx-forms/issues",
   "dependencies": {
-    "skylark-domx-data": "git+https://github.com/skylark-domx/skylark-domx-data.git#master",
-    "skylark-domx-query": "git+https://github.com/skylark-domx/skylark-domx-query.git#master",
-    "skylark-domx-velm": "git+https://github.com/skylark-domx/skylark-domx-velm.git#master",
-    "skylark-langx": "git+https://github.com/skylark-langx/skylark-langx.git#master"
+    "skylark-domx-data": "git+https://github.com/skylark-domx/skylark-domx-data.git",
+    "skylark-domx-query": "git+https://github.com/skylark-domx/skylark-domx-query.git",
+    "skylark-domx-velm": "git+https://github.com/skylark-domx/skylark-domx-velm.git",
+    "skylark-langx": "git+https://github.com/skylark-langx/skylark-langx.git"
   },
   "engines": {
     "node": ">=0.8.0"
