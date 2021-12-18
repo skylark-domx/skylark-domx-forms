@@ -350,8 +350,16 @@ define('skylark-domx-forms/serialize-array',[
             add = function(value) {
                 if (value.forEach) return value.forEach(add)
                 result.push({ name: name, value: value })
-            }
-        langx.each(formElm.elements, function(_, field) {
+            },
+            elements;
+        if (formElm.elements) {
+            elements = formElm.elements;
+        } else if (langx.isArrayLike(formElm)) {
+            elements = formElm;
+        } else {
+            elements = [formElm];
+        }
+        langx.each(elements, function(_, field) {
             type = field.type, name = field.name
             if (name && field.nodeName.toLowerCase() != 'fieldset' &&
                 !field.disabled && type != 'submit' && type != 'reset' && type != 'button' && type != 'file' &&
@@ -403,6 +411,8 @@ define('skylark-domx-forms/serialize',[
     return forms.serialize = serialize;
 });
 define('skylark-domx-forms/main',[
+    "skylark-langx",
+    "skylark-domx-data",
 	"./forms",
     "skylark-domx-velm",
     "skylark-domx-query",
@@ -410,7 +420,7 @@ define('skylark-domx-forms/main',[
     "./serialize-array",
     "./serialize-object",
     "./serialize"
-],function(forms,velm,$){
+],function(langx,datax,forms,velm,$){
 
     // from ./data
     velm.delegate([
@@ -420,11 +430,48 @@ define('skylark-domx-forms/main',[
         "serialize"
     ], forms);
 
-    $.fn.deserialize = $.wraps.wrapper_value(forms.deserialize, forms, forms.deserialize);
-    $.fn.serializeArray = $.wraps.wrapper_value(forms.serializeArray, forms, forms.serializeArray);
-    $.fn.serializeObject = $.wraps.wrapper_value(forms.serializeObject, forms, forms.serializeObject);
+    $.fn.deserialize = $.wraps.wrapper_every_act(forms.deserialize, forms, forms.deserialize);
+    $.fn.serializeArray = $.wraps.wrapper_map(forms.serializeArray, forms, forms.serializeArray,true);
+    $.fn.serializeObject = $.wraps.wwrapper_map(forms.serializeObject, forms, forms.serializeObject,true);
     $.fn.serialize = $.wraps.wrapper_value(forms.serialize, forms, forms.serialize);
 
+
+/*
+    var r20 = /%20/g,
+        rbracket = /\[\]$/,
+        rCRLF = /\r?\n/g,
+        rsubmitterTypes = /^(?:submit|button|image|reset|file)$/i,
+        rsubmittable = /^(?:input|select|textarea|keygen)/i;
+    var rcheckableType = ( /^(?:checkbox|radio)$/i );
+
+    $.fn.serializeArray = function() {
+        return this.map( function() {
+
+            // Can add propHook for "elements" to filter or add form elements
+            var elements = datax.prop(this, "elements" );
+            return elements ? langx.makeArray( elements ) : this;
+        } )
+        .filter( function() {
+            var type = this.type;
+
+            // Use .is( ":disabled" ) so that fieldset[disabled] works
+            return this.name && !$(this).is( ":disabled" ) &&
+                rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
+                ( this.checked || !rcheckableType.test( type ) );
+        } )
+        .map( function( i, elem ) {
+            var val = $(this).val();
+
+            return val == null ?
+                null :
+                langx.isArray( val ) ?
+                    langx.map( val, function( val ) {
+                        return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+                    } ) :
+                    { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+        } ).get();
+    };
+*/
 
 	return forms;
 });

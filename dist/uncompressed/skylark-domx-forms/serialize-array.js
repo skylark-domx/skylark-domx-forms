@@ -8,8 +8,16 @@ define([
             add = function(value) {
                 if (value.forEach) return value.forEach(add)
                 result.push({ name: name, value: value })
-            }
-        langx.each(formElm.elements, function(_, field) {
+            },
+            elements;
+        if (formElm.elements) {
+            elements = formElm.elements;
+        } else if (langx.isArrayLike(formElm)) {
+            elements = formElm;
+        } else {
+            elements = [formElm];
+        }
+        langx.each(elements, function(_, field) {
             type = field.type, name = field.name
             if (name && field.nodeName.toLowerCase() != 'fieldset' &&
                 !field.disabled && type != 'submit' && type != 'reset' && type != 'button' && type != 'file' &&
