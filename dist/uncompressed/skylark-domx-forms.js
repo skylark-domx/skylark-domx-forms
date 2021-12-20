@@ -432,7 +432,7 @@ define('skylark-domx-forms/main',[
 
     $.fn.deserialize = $.wraps.wrapper_every_act(forms.deserialize, forms, forms.deserialize);
     $.fn.serializeArray = $.wraps.wrapper_map(forms.serializeArray, forms, forms.serializeArray,true);
-    $.fn.serializeObject = $.wraps.wwrapper_map(forms.serializeObject, forms, forms.serializeObject,true);
+    $.fn.serializeObject = $.wraps.wrapper_map(forms.serializeObject, forms, forms.serializeObject,true);
     $.fn.serialize = $.wraps.wrapper_value(forms.serialize, forms, forms.serialize);
 
 
