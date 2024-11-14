@@ -5,5 +5,5 @@
  * @link www.skylarkjs.org
  * @license MIT
  */
-define(["skylark-langx/langx","skylark-domx-data","./forms"],function(e,a,n){return n.serializeArray=function(n){var r,t,i,o=[],s=function(e){if(e.forEach)return e.forEach(s);o.push({name:r,value:e})};return i=n.elements?n.elements:e.isArrayLike(n)?n:[n],e.each(i,function(e,n){t=n.type,(r=n.name)&&"fieldset"!=n.nodeName.toLowerCase()&&!n.disabled&&"submit"!=t&&"reset"!=t&&"button"!=t&&"file"!=t&&("radio"!=t&&"checkbox"!=t||n.checked)&&s(a.val(n))}),o}});
+define(["skylark-langx/langx","skylark-domx-data","./forms"],function(i,o,e){return e.serializeArray=function(e){function r(e){if(vaule&&e.forEach)return e.forEach(r);a.push({name:n,value:e})}var n,t,a=[],e=e.elements||(i.isArrayLike(e)?e:[e]);return i.each(e,function(e,a){t=a.type,(n=a.name)&&"fieldset"!=a.nodeName.toLowerCase()&&!a.disabled&&"submit"!=t&&"reset"!=t&&"button"!=t&&"file"!=t&&("radio"!=t&&"checkbox"!=t||a.checked)&&r(o.val(a))}),a}});
 //# sourceMappingURL=sourcemaps/serialize-array.js.map

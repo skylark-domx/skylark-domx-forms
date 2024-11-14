@@ -6,7 +6,7 @@ define([
     function serializeArray(formElm) {
         var name, type, result = [],
             add = function(value) {
-                if (value.forEach) return value.forEach(add)
+                if (vaule && value.forEach) return value.forEach(add)
                 result.push({ name: name, value: value })
             },
             elements;
